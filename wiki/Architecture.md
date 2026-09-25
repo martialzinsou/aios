@@ -153,3 +153,7 @@ aiOS image (Chromium OS + chromeos-base/aios-agent)
 ```
 
 Détails : [Construction de l'OS](Construction-de-l-OS).
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

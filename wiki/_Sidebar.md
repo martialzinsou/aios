@@ -27,3 +27,7 @@
 
 - [FAQ](FAQ)
 - [Contribuer](Contribuer)
+
+---
+
+*© 2026 Martial Zinsou*

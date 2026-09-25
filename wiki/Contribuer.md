@@ -22,18 +22,18 @@ que la bibliothèque standard.
 | **Langue** | tout le projet est en **français** : code, messages, documentation |
 | **`make check` vert** | tests + `compileall` + `bash -n` + cohérence politique |
 | **Aucune dépendance runtime** | `pip install` = `.[dev]` seulement |
-| **Anonymisation** | aucun nom de personne, hostname ou chemin personnel dans le dépôt ni dans les captures ; le générateur de captures **échoue** s'il en détecte un |
+| **Signature** | le projet et ses documents sont signés **Martial Zinsou** ; les captures masquent en revanche login, hostname et chemins système, et le générateur **échoue** s'il en détecte un |
 | **`--trust` interdit** dans les artefacts livrés | réservé aux tests |
 | **Politique alignée** | tout changement de `StaticPolicy.default()` impose `make policy` |
 
 ### Identité git
 
-Le dépôt s'authentifie avec une identité de projet, jamais une identité
-personnelle :
+Le dépôt est signé par son auteur. La modification est **locale** au dépôt : ta
+configuration globale n'est pas touchée.
 
 ```bash
-git config --local user.name  "aiOS"
-git config --local user.email "aios@users.noreply.github.com"
+git config --local user.name  "Martial Zinsou"
+git config --local user.email "<id>+martialzinsou@users.noreply.github.com"
 ```
 
 ---
@@ -152,15 +152,38 @@ wiki/
 - toute modification de CLI, de politique ou d'invariant **doit** être
   répercutée dans la page correspondante.
 
+### Générer le site web
+
+Le wiki sert de source au site *liquid glass* publié sur GitHub Pages :
+
+```bash
+npm install     # une fois : jsdom, pour valider la syntaxe Mermaid
+make site       # wiki/*.md → site/ (généré, gitignoré)
+make check      # tests + lint + politique + diagrammes
+```
+
+Toute nouvelle page dans `wiki/` doit aussi être déclarée dans `NAV` et
+`CARDS` de `tools/build_site.py` pour apparaître dans la navigation et sur la
+page d'accueil.
+
+Les 10 diagrammes Mermaid sont validés avec le **vrai parseur**
+(`tools/check_diagrams.js`) : un type inconnu — par exemple
+`usecaseDiagram`, qui n'existe que chez PlantUML — fait échouer `make check`.
+
 ---
 
 ## 8. Vérification finale
 
 ```bash
-make check                        # 114 tests + lint + politique
+make check                        # 114 tests + lint + politique + diagrammes
 python3 tools/make_screenshots.py # captures à jour (échoue si fuite d'identité)
+make site                         # site/ régénéré
 git status                        # rien d'oublié
 ```
 
 Ordre conseillé pour un commit : code → tests → politique (`make policy`) →
 documentation → captures.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

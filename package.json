@@ -1,0 +1,15 @@
+{
+  "name": "aios-docs",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Validation des diagrammes Mermaid du wiki aiOS",
+  "license": "BSD-3-Clause",
+  "author": "Martial Zinsou",
+  "scripts": {
+    "check:diagrams": "node tools/check_diagrams.js",
+    "site": "python3 tools/build_site.py"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

@@ -1,0 +1,81 @@
+name: Déployer le site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Dépendances Python
+        run: pip install "markdown>=3.5"
+
+      - name: Dépendances Node
+        run: npm ci
+
+      - name: Validation des diagrammes Mermaid
+        run: node tools/check_diagrams.js
+
+      - name: Construction du site
+        run: python3 tools/build_site.py
+
+      - name: Contrôle des liens internes
+        run: |
+          python3 - <<'PY'
+          import re, pathlib, sys
+          root = pathlib.Path("site")
+          pages = {p.name for p in root.glob("*.html")}
+          assets = {str(p.relative_to(root)) for p in (root / "assets").rglob("*") if p.is_file()}
+          bad = []
+          for page in root.glob("*.html"):
+              html = page.read_text(encoding="utf-8")
+              for m in re.finditer(r'(?:href|src)="([^"]+)"', html):
+                  url = m.group(1)
+                  if url.startswith(("http", "mailto:", "#", "data:", "//")):
+                      continue
+                  target = url.split("#")[0]
+                  ok = target in pages if target.endswith(".html") else target in assets
+                  if not ok:
+                      bad.append(f"{page.name} -> {url}")
+          if bad:
+              print("\n".join(sorted(set(bad))))
+              sys.exit(1)
+          print(f"{len(pages)} pages, {len(assets)} assets : liens OK")
+          PY
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

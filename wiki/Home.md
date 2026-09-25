@@ -2,6 +2,9 @@
 
 **Un OS basé sur Chromium OS, augmenté d'un assistant agentique 100 % local.**
 
+> **Auteur : Martial Zinsou** · Licence BSD-3-Clause · 2026
+> Interface et documentation du projet **liquid glass**.
+
 aiOS assemble deux pièces indépendantes :
 
 1. **La couche OS** — le code source de Chromium OS greffé du paquet
@@ -37,9 +40,10 @@ aiOS assemble deux pièces indépendantes :
 ## Captures d'écran
 
 Les captures ci-dessous sont **régénérées automatiquement** par
-`python3 tools/make_screenshots.py` et **anonymisées** : le nom d'utilisateur,
-le nom d'hôte et les chemins réels y sont remplacés par des identifiants de
-démonstration (`aios`, `aios-devbox`, `/home/chronos/user/...`).
+`python3 tools/make_screenshots.py` et **anonymisées pour les identifiants
+système** : le nom d'utilisateur, le nom d'hôte et les chemins réels y sont
+remplacés par des identifiants de démonstration (`aios`, `aios-devbox`,
+`/home/chronos/user/...`). La signature du projet n'est pas concernée.
 
 | | |
 |---|---|
@@ -72,3 +76,7 @@ démonstration (`aios`, `aios-devbox`, `/home/chronos/user/...`).
 ## Licence
 
 BSD-3-Clause. Le code de Chromium OS reste sous sa propre licence.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

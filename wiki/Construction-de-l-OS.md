@@ -180,3 +180,7 @@ bash -n os/scripts/*.sh         # syntaxe des scripts (inclus dans make lint)
 ```
 
 Voir aussi [Déploiement et exploitation](Deploiement-et-exploitation).
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

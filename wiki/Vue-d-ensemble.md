@@ -99,3 +99,7 @@ n'est nécessaire que pour la mise en paquetage ([Construction de l'OS](Construc
 ## 7. Prochaines étapes
 
 Voir [Contribuer](Contribuer) pour le détail des chantiers ouverts.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

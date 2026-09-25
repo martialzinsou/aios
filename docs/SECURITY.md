@@ -131,3 +131,7 @@ Les tests de sécurité les plus directs :
 Ouvre une issue avec : la version (`aios --version`), la politique utilisée
 (`aios policy`), et le segment d'audit concerné (`aios audit -n 50`).
 **N'inclus jamais de credential réel** — le journal les masque, mais vérifie.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

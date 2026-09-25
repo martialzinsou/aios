@@ -189,3 +189,7 @@ make check-policy  # code ↔ fichier de politique
 ```
 
 Le build OS n'est nécessaire que pour la *mise empaquetage*.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

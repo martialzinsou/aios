@@ -8,34 +8,39 @@ modifiables dans le dépôt. Les captures d'écran du terminal sont dans
 
 ## 1. Cas d'utilisation
 
-```mermaid
-usecaseDiagram
-    actor "Opérateur" as op
-    actor "Session Ash (UI)" as ash
-    actor "Système de fichiers" as fs
-    actor "Réseau loopback" as net
+> Mermaid ne possède pas de type `usecaseDiagram` (c'est une syntaxe PlantUML) :
+> le diagramme ci-dessous est donc exprimé en `flowchart`, avec les mêmes
+> acteurs, cas et liens qu'un diagramme de cas d'utilisation UML.
 
-    rectangle "aiOS" {
-        usecase "Lancer un objectif<br/>(aios run / chat)" as UC1
-        usecase "Confirmer une action<br/>non-lecture" as UC2
-        usecase "Consulter la politique<br/>(aios policy)" as UC3
-        usecase "Lire le journal<br/>(aios audit)" as UC4
-        usecase "Vérifier l'intégrité<br/>(aios audit --verify)" as UC5
-        usecase "Diagnostiquer<br/>(aios doctor)" as UC6
-        usecase "Servir la session<br/>(aios serve)" as UC7
-        usecase "Demander via le socket<br/>(aios-request)" as UC8
-        usecase "Exécuter une lecture" as UC9
-        usecase "Exécuter une écriture" as UC10
-        usecase "Interroger le modèle local" as UC11
-        usecase "Journaliser la décision" as UC12
-    }
+```mermaid
+flowchart TB
+    op(["Opérateur"])
+    ash(["Session Ash (UI)"])
+    fs[("Système de fichiers")]
+    net(("Réseau loopback"))
+
+    subgraph aios["aiOS"]
+      direction TB
+      UC1["Lancer un objectif<br/>(aios run / chat)"]
+      UC2["Confirmer une action<br/>non-lecture"]
+      UC3["Consulter la politique<br/>(aios policy)"]
+      UC4["Lire le journal<br/>(aios audit)"]
+      UC5["Vérifier l'intégrité<br/>(aios audit --verify)"]
+      UC6["Diagnostiquer<br/>(aios doctor)"]
+      UC7["Servir la session<br/>(aios serve)"]
+      UC8["Demander via le socket<br/>(aios-request)"]
+      UC9["Exécuter une lecture"]
+      UC10["Exécuter une écriture"]
+      UC11["Interroger le modèle local"]
+      UC12["Journaliser la décision"]
+    end
 
     op --> UC1
+    op --> UC2
     op --> UC3
     op --> UC4
     op --> UC5
     op --> UC6
-    op --> UC2
     ash --> UC7
     ash --> UC8
     UC8 --> UC7
@@ -46,10 +51,9 @@ usecaseDiagram
     UC9 --> fs
     UC10 --> fs
     UC11 --> net
-    UC10 --> UC12
     UC9 --> UC12
-
-    UC10 --> UC9 : si ALLOW
+    UC10 --> UC12
+    UC10 -->|si ALLOW| UC9
 ```
 
 ---
@@ -578,3 +582,7 @@ flowchart LR
 - Les **états** utilisent `stateDiagram-v2` (UML).
 - Les **composants** et le **déploiement** sont en `flowchart` pour rester
   lisibles dans le wiki.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

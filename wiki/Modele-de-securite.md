@@ -174,3 +174,7 @@ Ouvre une issue avec :
 
 **N'inclus jamais de credential réel** — le journal les masque, mais vérifie.
 Voir [Contribuer](Contribuer).
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

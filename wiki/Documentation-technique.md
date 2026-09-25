@@ -450,3 +450,7 @@ Le script :
    `wiki/captures/*.png`.
 
 Aucune capture n'est modifiée à la main.
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

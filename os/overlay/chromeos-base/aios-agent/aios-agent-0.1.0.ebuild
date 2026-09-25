@@ -1,10 +1,10 @@
-# Copyright 2026 aiOS Project
+# Copyright 2026 Martial Zinsou
 # Distributed under the terms of the BSD 3-Clause License
 
 EAPI=8
 
 DESCRIPTION="aiOS agentic on-device assistant service"
-HOMEPAGE="https://github.com/aios/aios"
+HOMEPAGE="https://github.com/martialzinsou/aios"
 LICENSE="BSD"
 SRC_URI=""
 S="${WORKDIR}"

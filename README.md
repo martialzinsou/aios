@@ -2,6 +2,8 @@
 
 **Un OS basé sur Chromium OS, augmenté d'un assistant agentique 100 % local.**
 
+> **Auteur : Martial Zinsou** · Licence BSD-3-Clause · 2026
+
 aiOS assemble deux choses :
 
 1. **La couche OS** — le code source de Chromium OS, greffé d'un paquet
@@ -237,8 +239,34 @@ Les captures d'écran sont générées, jamais saisies à la main :
 python3 tools/make_screenshots.py     # → wiki/captures/*.png
 ```
 
-Le script anonymise les sorties et échoue s'il détecte une fuite d'identité ou
-un glyphe manquant.
+Le script anonymise les **identifiants système** des sorties (login, hostname,
+chemins) et échoue s'il détecte une fuite ou un glyphe manquant ; la signature
+du projet n'est pas concernée.
+
+### Site web — interface *liquid glass*
+
+La même documentation est publiée sur **GitHub Pages** avec une interface
+*liquid glass* : panneaux translucides (`backdrop-filter`), aurora animée,
+recherche ⌘K, lightbox sur les captures, sommaire par page, rendu Mermaid côté
+client et thème clair/sombre.
+
+| | |
+|---|---|
+| [web/assets/glass.css](web/assets/glass.css) | design system (verre, aurora, thèmes) |
+| [web/assets/app.js](web/assets/app.js) | recherche, lightbox, rendu des schémas, tilt 3D |
+| [web/assets/mermaid.min.js](web/assets/mermaid.min.js) | Mermaid 11 vendored (hors-ligne) |
+| [tools/build_site.py](tools/build_site.py) | wiki Markdown → `site/` (11 pages) |
+| [tools/check_diagrams.js](tools/check_diagrams.js) | validation syntaxique des 10 diagrammes |
+| [.github/workflows/pages.yml](.github/workflows/pages.yml) | build + déploiement Pages |
+
+```bash
+npm install        # jsdom, pour la validation Mermaid
+make site          # → site/ (généré, gitignoré)
+make check         # tests + lint + politique + diagrammes
+```
+
+Le site est reconstruit en CI à chaque push sur `main` →
+**<https://martialzinsou.github.io/aios/>**
 
 ## Roadmap
 
@@ -252,4 +280,5 @@ un glyphe manquant.
 
 ## Licence
 
-BSD-3-Clause. Le code de Chromium OS reste sous sa propre licence.
+Copyright 2026 **Martial Zinsou** — BSD-3-Clause.
+Le code de Chromium OS reste sous sa propre licence.

@@ -25,3 +25,9 @@ episodes.json
 .DS_Store
 .idea/
 .vscode/
+
+# Site statique généré (liquid glass) — sources dans web/
+site/
+
+# Outils node (validation des diagrammes Mermaid)
+node_modules/

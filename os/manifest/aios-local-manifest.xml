@@ -23,7 +23,7 @@
   <!-- Retire le projet amont s'il porte déjà ce nom, puis réinstalle le nôtre. -->
   <remove-project name="chromiumos/platform/aios-agent"/>
 
-  <project name="aios/aios"
+  <project name="martialzinsou/aios"
            path="src/platform/aios-agent"
            remote="aios-github"
            revision="refs/heads/main"/>

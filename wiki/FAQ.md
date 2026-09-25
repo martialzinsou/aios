@@ -175,3 +175,7 @@ Voir [Contribuer](Contribuer).
 Issue avec `aios --version`, `aios policy` et `aios audit -n 50`.
 **Jamais de credential réel** dans le ticket. Voir
 [Modèle de sécurité §8](Modele-de-securite#8--signaler-une-faille).
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026

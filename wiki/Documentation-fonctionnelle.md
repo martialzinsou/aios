@@ -267,3 +267,7 @@ aios run --no-confirm "récupère https://example.com"
 | `AIOS_JAIL` | racines autorisées, séparées par `:` |
 | `AIOS_STATE_DIR` | répertoire d'état (audit, mémoire épisodique) |
 | `PYTHONPATH` | `agent/src` si on lance depuis les sources |
+
+---
+
+> **Martial Zinsou** · BSD-3-Clause · 2026
