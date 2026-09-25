@@ -1,0 +1,15 @@
+#!/bin/sh
+# aiOS request client launcher — same PYTHONPATH trick as /usr/bin/aios so it
+# works on any Chromium OS branch regardless of the distutils layout.
+set -eu
+
+AIOS_LIB="/usr/lib/aios"
+
+if [ -n "${PYTHONPATH:-}" ]; then
+    PYTHONPATH="${AIOS_LIB}:${PYTHONPATH}"
+else
+    PYTHONPATH="${AIOS_LIB}"
+fi
+export PYTHONPATH
+
+exec /usr/bin/python3 -m aios_agent.request "$@"

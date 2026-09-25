@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  aiOS — local manifest pour Chromium OS.
+
+  Usage (optionnel) :
+
+    cp os/manifest/aios-local-manifest.xml \
+       chromiumos/.repo/local_manifests/aios.xml
+    cd chromiumos && repo sync
+
+  Ce n'est PAS nécessaire pour builder : os/scripts/20-prepare-overlay.sh
+  greffe l'overlay directement dans le checkout, ce qui fonctionne hors-ligne.
+  Ce fichier sert uniquement si tu publies le projet comme dépôt git séparé et
+  que tu veux que `repo sync` le suive.
+
+  Adapte `name` / `remote` à l'emplacement réel de ton dépôt.
+-->
+<manifest>
+  <remote name="aios-github"
+          fetch="https://github.com/"
+          revision="refs/heads/main"/>
+
+  <!-- Retire le projet amont s'il porte déjà ce nom, puis réinstalle le nôtre. -->
+  <remove-project name="chromiumos/platform/aios-agent"/>
+
+  <project name="aios/aios"
+           path="src/platform/aios-agent"
+           remote="aios-github"
+           revision="refs/heads/main"/>
+</manifest>

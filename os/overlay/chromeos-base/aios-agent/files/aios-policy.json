@@ -1,0 +1,186 @@
+{
+  "rules": [
+    {
+      "id": "deny-privileged",
+      "decision": "deny",
+      "action": "*",
+      "target": "*",
+      "risk": "privileged",
+      "reason": "The agent never runs with elevated privileges."
+    },
+    {
+      "id": "deny-dev",
+      "decision": "deny",
+      "action": "*",
+      "target": "/dev/*",
+      "reason": "Raw devices are off limits."
+    },
+    {
+      "id": "deny-shadow",
+      "decision": "deny",
+      "action": "*",
+      "target": "/etc/shadow*",
+      "reason": "Password hashes are off limits."
+    },
+    {
+      "id": "deny-os-bin-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/bin/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-bin-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/bin/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-bin-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/bin/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-sbin-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/sbin/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-sbin-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/sbin/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-sbin-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/sbin/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-usr-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/usr/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-usr-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/usr/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-usr-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/usr/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-etc-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/etc/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-etc-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/etc/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-etc-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/etc/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-lib-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/lib/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-lib-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/lib/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-lib-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/lib/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-boot-write",
+      "decision": "deny",
+      "action": "*",
+      "target": "/boot/*",
+      "risk": "write",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-boot-execute",
+      "decision": "deny",
+      "action": "*",
+      "target": "/boot/*",
+      "risk": "execute",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "deny-os-boot-destructive",
+      "decision": "deny",
+      "action": "*",
+      "target": "/boot/*",
+      "risk": "destructive",
+      "reason": "The operating system is read-only for the agent."
+    },
+    {
+      "id": "allow-reads",
+      "decision": "allow",
+      "action": "*",
+      "target": "*",
+      "risk": "read",
+      "reason": "Reading is non-mutating; the path jail still applies."
+    }
+  ],
+  "defaults": {
+    "read": "allow",
+    "write": "confirm",
+    "network": "confirm",
+    "execute": "confirm",
+    "destructive": "confirm",
+    "privileged": "deny"
+  }
+}

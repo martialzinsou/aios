@@ -1,0 +1,15 @@
+#!/bin/sh
+# aiOS agent launcher — keeps the import path independent of the distutils
+# layout so the package works on any Chromium OS branch.
+set -eu
+
+AIOS_LIB="/usr/lib/aios"
+
+if [ -n "${PYTHONPATH:-}" ]; then
+    PYTHONPATH="${AIOS_LIB}:${PYTHONPATH}"
+else
+    PYTHONPATH="${AIOS_LIB}"
+fi
+export PYTHONPATH
+
+exec /usr/bin/python3 -m aios_agent.cli "$@"

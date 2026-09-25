@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Build Chromium OS — plusieurs dizaines de Go, jamais versionnés
+chromiumos/
+.local/
+out/
+*.img
+*.bin
+*.zip
+
+# État local de l'agent
+.aos-state/
+audit.jsonl
+episodes.json
+
+# Éditeurs / OS
+.DS_Store
+.idea/
+.vscode/
