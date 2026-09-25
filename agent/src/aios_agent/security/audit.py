@@ -97,6 +97,11 @@ class AuditLog:
             os.close(fd)
 
     # -- reading / verification -------------------------------------------
+    @property
+    def path(self) -> "Path | None":
+        """Journal file, or ``None`` when the log is memory-only."""
+        return self._path
+
     def records(self) -> List[Dict[str, Any]]:
         return list(self._records)
 

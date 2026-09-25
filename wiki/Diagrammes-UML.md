@@ -558,7 +558,7 @@ flowchart LR
     subgraph DEV["Poste de développeur"]
         SRC["dépôt aiOs"]
         VENV[".venv (pytest + pillow)"]
-        TESTS["make check<br/>114 tests + lint + politique"]
+        TESTS["make check<br/>130 tests + lint + politique"]
         SHOTS["tools/make_screenshots.py<br/>→ wiki/captures/*.png"]
         SRC --> VENV
         VENV --> TESTS

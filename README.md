@@ -51,7 +51,7 @@ aiOS assemble deux choses :
 
 ```bash
 make deps            # venv + pytest
-make test            # 114 tests
+make test            # 130 tests
 make agent-doctor    # détection du modèle local
 make agent-chat      # session interactive
 ```
@@ -152,10 +152,13 @@ agent/
 │   ├── llm/
 │   │   ├── local.py      OllamaClient, LLamaCppClient (loopback uniquement)
 │   │   └── prompts.py    protocole JSON + règles système
+│   ├── ui/
+│   │   ├── server.py     serveur HTTP loopback + jeton + confirmations
+│   │   └── assets/       bureau en verre liquide (HTML / CSS / JS)
 │   ├── server.py       service AF_UNIX 0600 (NDJSON)
 │   ├── request.py      aios-request — client du socket
-│   └── cli.py          aios run | chat | serve | tools | policy | audit | doctor
-└── tests/              114 tests
+│   └── cli.py          aios run | chat | serve | ui | tools | policy | audit | doctor
+└── tests/              130 tests
 ```
 
 ### Les deux cerveaux
@@ -227,6 +230,7 @@ Le wiki complet est versionné dans **[wiki/](wiki/)** :
 | [Architecture](wiki/Architecture.md) | modules, flux, frontières de confiance |
 | [Diagrammes UML](wiki/Diagrammes-UML.md) | cas d'utilisation, classes, séquence, activité, états, composants, déploiement |
 | [Documentation fonctionnelle](wiki/Documentation-fonctionnelle.md) | CLI, outils, sessions, captures |
+| [Interface graphique](wiki/Interface-graphique.md) | bureau liquid glass, six vues, confirmation dans le navigateur |
 | [Documentation technique](wiki/Documentation-technique.md) | formats, protocoles, implémentation |
 | [Modèle de sécurité](wiki/Modele-de-securite.md) | 12 invariants, atténuations, limites |
 | [Construction de l'OS](wiki/Construction-de-l-OS.md) | chaîne de build Chromium OS |
@@ -236,7 +240,8 @@ Le wiki complet est versionné dans **[wiki/](wiki/)** :
 Les captures d'écran sont générées, jamais saisies à la main :
 
 ```bash
-python3 tools/make_screenshots.py     # → wiki/captures/*.png
+python3 tools/make_screenshots.py     # → wiki/captures/0*.png, 10-serve.png
+python3 tools/make_ui_screenshots.py  # → wiki/captures/ui-0*.png
 ```
 
 Le script anonymise les **identifiants système** des sorties (login, hostname,
@@ -255,8 +260,9 @@ client et thème clair/sombre.
 | [web/assets/glass.css](web/assets/glass.css) | design system (verre, aurora, thèmes) |
 | [web/assets/app.js](web/assets/app.js) | recherche, lightbox, rendu des schémas, tilt 3D |
 | [web/assets/mermaid.min.js](web/assets/mermaid.min.js) | Mermaid 11 vendored (hors-ligne) |
-| [tools/build_site.py](tools/build_site.py) | wiki Markdown → `site/` (11 pages) |
+| [tools/build_site.py](tools/build_site.py) | wiki Markdown → `site/` (12 pages) |
 | [tools/check_diagrams.js](tools/check_diagrams.js) | validation syntaxique des 10 diagrammes |
+| [tools/make_ui_screenshots.py](tools/make_ui_screenshots.py) | captures Chrome du bureau en verre liquide |
 | [.github/workflows/pages.yml](.github/workflows/pages.yml) | build + déploiement Pages |
 
 ```bash

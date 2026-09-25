@@ -36,6 +36,7 @@ NAV: list[tuple[str, list[tuple[str, str]]]] = [
             ("Vue d'ensemble", "Vue-d-ensemble"),
             ("Architecture", "Architecture"),
             ("Documentation fonctionnelle", "Documentation-fonctionnelle"),
+            ("Interface graphique", "Interface-graphique"),
             ("Documentation technique", "Documentation-technique"),
             ("Diagrammes UML", "Diagrammes-UML"),
         ],
@@ -53,6 +54,7 @@ NAV: list[tuple[str, list[tuple[str, str]]]] = [
         [
             ("Contribuer", "Contribuer"),
             ("FAQ", "FAQ"),
+            ("Auteur", "Auteur"),
         ],
     ),
 ]
@@ -62,7 +64,8 @@ ORDER: list[str] = ["Home"] + [slug for _, items in NAV for _, slug in items]
 CARDS: dict[str, tuple[str, str]] = {
     "Vue-d-ensemble": ("◈", "Ce qu'est aiOS, le périmètre complet, l'agent, la couche OS et la boucle de sécurité."),
     "Architecture": ("⬡", "Moteur, mémoire, outils, service, couches système et points d'intégration Chromium OS."),
-    "Documentation-fonctionnelle": ("⌨", "Commandes `aios run|chat|tools|policy|doctor|serve|audit` et comportements observables."),
+    "Documentation-fonctionnelle": ("⌨", "Commandes `aios run|chat|tools|policy|doctor|serve|ui|audit` et comportements observables."),
+    "Interface-graphique": ("◐", "Le bureau en verre liquide : six vues, confirmation humaine dans le navigateur, loopback + jeton."),
     "Documentation-technique": ("⚙", "Sources, build, tests, captures régénérées, conventions et IDs de code."),
     "Diagrammes-UML": ("⤫", "10 diagrammes Mermaid : classes, séquences, états, composants, déploiement."),
     "Modele-de-securite": ("⛨", "12 invariants I1–I12, moindre privilège, confirmation humaine, fail-closed."),
@@ -70,6 +73,7 @@ CARDS: dict[str, tuple[str, str]] = {
     "Deploiement-et-exploitation": ("⌂", "Installation, service upstart, journaux, rotation, sauvegarde et dépannage."),
     "Contribuer": ("✦", "Règles du dépôt, identité git, ordre de commit et chantiers ouverts."),
     "FAQ": ("?", "Questions fréquentes sur l'installation, la sécurité, le build et les captures."),
+    "Auteur": ("✦", "Parcours et philosophie de l'inventeur d'aiOS."),
 }
 
 MERMAID_RE = re.compile(r"```mermaid[ \t]*\n(.*?)```", re.S)
@@ -411,19 +415,19 @@ def build() -> int:
     <a class="btn ghost" href="diagrammes-uml.html">Voir les 10 diagrammes UML</a>
   </div>
   <div class="stats">
-    <div class="stat"><b>114</b><span>tests pytest</span></div>
+    <div class="stat"><b>130</b><span>tests pytest</span></div>
     <div class="stat"><b>12</b><span>invariants I1–I12</span></div>
     <div class="stat"><b>9</b><span>outils contrôlés</span></div>
     <div class="stat"><b>10</b><span>diagrammes UML</span></div>
-    <div class="stat"><b>11</b><span>captures régénérées</span></div>
+    <div class="stat"><b>18</b><span>captures régénérées</span></div>
     <div class="stat"><b>0</b><span>appel réseau sortant</span></div>
   </div>
 </section>
 
-<div class="section-title"><h2>Documentation</h2><span>10 pages · wiki complet</span></div>
+<div class="section-title"><h2>Documentation</h2><span>12 pages · wiki complet</span></div>
 <div class="cards">{''.join(cards)}</div>
 
-<div class="section-title"><h2>Captures d'écran</h2><span>générées par <code>tools/make_screenshots.py</code></span></div>
+<div class="section-title"><h2>Captures d'écran</h2><span>générées par <code>tools/make_screenshots.py</code> et <code>tools/make_ui_screenshots.py</code></span></div>
 <div class="shots">{''.join(shots)}</div>
 
 <footer class="pagefoot">

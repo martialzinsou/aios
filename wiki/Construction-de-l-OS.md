@@ -145,7 +145,7 @@ manuellement.
 Toute la logique — sécurité comprise — est testée **sans** Chromium OS :
 
 ```bash
-make test          # 114 tests
+make test          # 130 tests
 make lint          # compilation Python + syntaxe bash
 make check-policy  # code ↔ fichier de politique
 make check         # les trois

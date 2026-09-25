@@ -68,6 +68,15 @@ def build_parser() -> argparse.ArgumentParser:
     serve_p.add_argument("--no-daemon", action="store_true",
                          help="garde le processus au premier plan (défaut)")
 
+    ui_p = sub.add_parser("ui", parents=[common],
+                          help="ouvre l'interface graphique locale (verre liquide)")
+    ui_p.add_argument("--host", default="127.0.0.1",
+                      help="liaison TCP — loopback uniquement (défaut)")
+    ui_p.add_argument("--port", type=int, default=0,
+                      help="port TCP, 0 = aléatoire (défaut)")
+    ui_p.add_argument("--no-browser", action="store_true",
+                      help="n'ouvre pas le navigateur automatiquement")
+
     audit = sub.add_parser("audit", parents=[common], help="journal d'audit")
     audit.add_argument("--verify", action="store_true", help="vérifie la chaîne de hachage")
     audit.add_argument("-n", type=int, default=20, help="nombre d'enregistrements")
@@ -84,7 +93,8 @@ def _confirmer(args: argparse.Namespace) -> Confirmer:
     return CLIConfirmer()
 
 
-def make_agent(args: argparse.Namespace) -> Agent:
+def make_agent(args: argparse.Namespace,
+               confirmer: Optional[Confirmer] = None) -> Agent:
     cfg = AgentConfig(
         jail_roots=args.jail or _default_jail(),
         policy_path=args.policy,
@@ -98,7 +108,7 @@ def make_agent(args: argparse.Namespace) -> Agent:
         llm_model=args.llm_model,
         echo=lambda s: print(s, file=sys.stderr),
     )
-    return Agent(cfg, confirmer=_confirmer(args))
+    return Agent(cfg, confirmer=confirmer or _confirmer(args))
 
 
 # --------------------------------------------------------------------------
@@ -232,6 +242,43 @@ def cmd_serve(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ui(args: argparse.Namespace) -> int:
+    from .ui import UIConfirmer, UIServer
+
+    interactive = not (args.trust or args.no_confirm)
+    confirmer = UIConfirmer()
+    agent = make_agent(args, confirmer=confirmer if interactive else _confirmer(args))
+    try:
+        server = UIServer(agent, host=args.host, port=args.port,
+                          confirmer=confirmer)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        agent.shutdown()
+        return 2
+
+    url = server.url
+    print(f"aiOS console : {url}", file=sys.stderr)
+    print(f"  cerveau={agent.brain.name}  jail={args.jail or _default_jail()}",
+          file=sys.stderr)
+    if not interactive:
+        print("  ⚠ --trust/--no-confirm : aucune confirmation ne sera demandée",
+              file=sys.stderr)
+    if not args.no_browser:
+        try:
+            import webbrowser
+            webbrowser.open(url)
+        except Exception:  # pragma: no cover - environnement sans navigateur
+            pass
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\narrêt demandé", file=sys.stderr)
+    finally:
+        server.shutdown()
+        agent.shutdown()
+    return 0
+
+
 def cmd_doctor(args: argparse.Namespace) -> int:
     print(BANNER.format(version=__version__))
     print(f"  python   : {sys.version.split()[0]}")
@@ -254,6 +301,7 @@ _COMMANDS = {
     "policy": cmd_policy,
     "audit": cmd_audit,
     "serve": cmd_serve,
+    "ui": cmd_ui,
     "doctor": cmd_doctor,
 }
 

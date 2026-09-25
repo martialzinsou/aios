@@ -52,6 +52,24 @@ registre d'outils.
 | I11 | Le socket du service est `AF_UNIX` mode `0600` dans un répertoire `0700` | `server.py::AgentServer` |
 | I12 | La boucle est bornée en étapes **et** en temps | `core/loop.py` |
 
+### L'interface graphique (`aios ui`)
+
+Le bureau en verre liquide **n'est pas une exception** : il ne fait que rendre
+ces invariants visibles. Contrôles spécifiques, en plus d'I2 et d'I9 :
+
+| Contrôle | Mise en œuvre |
+|---|---|
+| Liaison **loopback uniquement** | tout hôte hors `{127.0.0.1, localhost, ::1}` est rejeté au démarrage du serveur |
+| Jeton de session par instance | exigé sur toutes les routes `/api/*`, comparaison en temps constant (`secrets.compare_digest`) |
+| Vérification du champ `Host` | `Host` inattendu → `403` (relier-pour-noyer) |
+| CSP stricte + `no-store` | `default-src 'self'`, `connect-src 'self'`, `base-uri 'none'`, `form-action 'none'` |
+| Confirmation **fail-closed** | la file vit dans le processus du serveur ; expiration → refus |
+| Aucune sortie réseau | l'interface ne parle qu'à elle-même |
+
+Le service `aios serve` (socket `AF_UNIX 0600`, I11) reste le canal IPC de la
+session Chromium OS : l'HTTP loopback est un **client supplémentaire**, pas un
+remplaçant.
+
 ---
 
 ## 3. Ce que le socle protège
@@ -67,6 +85,8 @@ registre d'outils.
 | **Récursion infinie / coût déraisonnable** | Budget d'étapes et de temps (I12) ; `RLIMIT_CPU`, `RLIMIT_AS`, `RLIMIT_FSIZE`, timeout et plafond de sortie côté subprocess. |
 | **Falsification du journal** | Chaînage SHA-256 + numérotation de séquence (I9, I10). |
 | **Accès au service par un autre utilisateur** | Socket `0600` dans un répertoire `0700` (I11). |
+| **Relier-pour-noyer vers l'interface locale** | Vérification du champ `Host` sur chaque requête ; jeton exigé ; CSP `connect-src 'self'`. |
+| **Ouverture de l'interface depuis le réseau** | Liaison refusée hors loopback — le serveur ne se crée même pas. |
 | **Course entre approbation et exécution** | Les `Grant` sont horodatés, TTL borné, révocables (`revoke_all`) ; ciblage par `(action, target)` exact. |
 
 ---
@@ -107,7 +127,7 @@ aios policy
 # cohérence code ↔ fichier embarqué dans l'image
 make check-policy
 
-# 114 tests dont la majorité sont des tests de sécurité
+# 130 tests dont la majorité sont des tests de sécurité
 make test
 ```
 
@@ -123,6 +143,10 @@ Les tests de sécurité les plus directs :
 | `test_agent.py::test_step_budget_is_enforced` | I12 |
 | `test_server.py::test_socket_permissions_and_roundtrip` | I11 |
 | `test_tools.py::test_read_file_outside_jail_is_blocked` | I6 |
+| `test_ui.py::test_only_loopback_binding_is_accepted` | interface limitée à la loopback |
+| `test_ui.py::test_api_requires_the_session_token` | jeton exigé sur `/api/*` |
+| `test_ui.py::test_foreign_host_header_is_refused` | champ `Host` vérifié |
+| `test_ui.py::test_confirmation_times_out_as_a_refusal` | confirmation *fail-closed* |
 
 ---
 

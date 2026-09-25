@@ -68,7 +68,7 @@ remplacés par des identifiants de démonstration (`aios`, `aios-devbox`,
 - [x] Socle de sécurité : politique, permissions, sandbox, audit chaîné, masquage
 - [x] Service local `AF_UNIX 0600` + CLI à 7 sous-commandes
 - [x] Couche Chromium OS : ebuild, politique embarquée, job upstart, scripts de build
-- [x] **114 tests**, `make check` vert, wiki + captures générées
+- [x] **130 tests**, `make check` vert, wiki + captures générées
 - [ ] Intégration session : confirmation graphique via D-Bus dans Ash
 - [ ] Outils supplémentaires : gestionnaire de paquets, réglages ChromeOS
 - [ ] Profils de politique par rôle (enfant / admin / kiosque)

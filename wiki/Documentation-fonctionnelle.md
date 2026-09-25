@@ -9,7 +9,7 @@ Comment **utiliser** aiOS. Pour lire le code, voir
 
 ```bash
 make deps            # venv + pytest (développement)
-make test            # 114 tests
+make test            # 130 tests
 make check           # tests + lint + cohérence de la politique
 ```
 
@@ -23,7 +23,7 @@ Sur l'image aiOS, `/usr/bin/aios` fait ce travail pour vous.
 
 ---
 
-## 2. Les 7 sous-commandes
+## 2. Les 8 sous-commandes
 
 | Commande | Rôle |
 |---|---|
@@ -35,6 +35,7 @@ Sur l'image aiOS, `/usr/bin/aios` fait ce travail pour vous.
 | `aios audit [-n N] [--verify]` | lit / vérifie le journal d'audit (20 par défaut) |
 | `aios doctor` | diagnostique l'environnement et le modèle local |
 | `aios serve --socket PATH` | démarre le service `AF_UNIX` |
+| `aios ui [--port N]` | ouvre le bureau en verre liquide (loopback) |
 
 > `aios policy` et `aios audit` sont en lecture seule : ils ne démarrent jamais
 > d'agent et ne déclenchent aucune action.

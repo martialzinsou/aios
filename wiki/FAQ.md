@@ -146,7 +146,7 @@ Non. Chromium OS ne se build que sous Linux. Utilise une VM ou le SDK Docker :
 Tout ce qui touche au moteur et à la sécurité :
 
 ```bash
-make check     # 114 tests + lint + cohérence de la politique
+make check     # 130 tests + lint + cohérence de la politique
 ```
 
 ### `make check-policy` échoue

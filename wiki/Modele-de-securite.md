@@ -146,7 +146,7 @@ Le job livré est vérifiable : il ne contient **jamais** `--trust`.
 aios audit --verify        # intégrité du journal
 aios policy                # politique effective
 make check-policy          # code ↔ fichier embarqué dans l'image
-make test                  # 114 tests, dont une majorité de tests de sécurité
+make test                  # 130 tests, dont une majorité de tests de sécurité
 make check                 # les trois + lint
 ```
 

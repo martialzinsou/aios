@@ -348,7 +348,7 @@ def prepare_demo(root: Path) -> Dict[str, str]:
         "# Notes aiOS\n\n- valider la politique de sécurité\n- repenser la jail\n",
         "utf-8")
     (demo / "rapport.txt").write_text(
-        "Rapport de build — 114 tests verts.\n", "utf-8")
+        "Rapport de build — 130 tests verts.\n", "utf-8")
     (demo / "src" / "main.py").write_text(
         'def main():\n    print("bonjour aiOS")\n', "utf-8")
     return {"demo": str(demo), "state": str(state),

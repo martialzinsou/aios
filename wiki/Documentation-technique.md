@@ -34,10 +34,13 @@ agent/
 │   ├── llm/
 │   │   ├── local.py          OllamaClient, LLamaCppClient (loopback)
 │   │   └── prompts.py        consigne système + schéma de décision
+│   ├── ui/
+│   │   ├── server.py         UIServer (HTTP loopback + jeton) + UIConfirmer
+│   │   └── assets/           bureau en verre liquide (index.html, ui.css, ui.js)
 │   ├── request.py            client NDJSON du service (aios-request)
 │   ├── server.py             AgentServer (AF_UNIX 0600)
-│   └── cli.py                7 sous-commandes
-└── tests/                    114 tests
+│   └── cli.py                8 sous-commandes
+└── tests/                    130 tests
 ```
 
 Zéro dépendance au runtime : Python ≥ 3.9 **standard library uniquement**.
@@ -433,7 +436,8 @@ Invariant de CI : **`make check` doit être vert** avant tout commit.
 ## 13. Générer les captures du wiki
 
 ```bash
-python3 tools/make_screenshots.py
+python3 tools/make_screenshots.py      # fenêtres de terminal
+python3 tools/make_ui_screenshots.py   # bureau en verre liquide (Chrome headless)
 ```
 
 Le script :
@@ -448,6 +452,10 @@ Le script :
    (`assert_no_missing`, `assert_anonymous`) ;
 5. rend une fenêtre terminal (Menlo, coins arrondis, ombre) et écrit
    `wiki/captures/*.png`.
+
+`make_ui_screenshots.py` suit la même discipline pour l'interface : démo
+identique, anonymisation vérifiée sur l'état JSON affiché, puis capture du
+rendu réel de Chrome en mode headless (`wiki/captures/ui-0*.png`).
 
 Aucune capture n'est modifiée à la main.
 

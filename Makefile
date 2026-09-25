@@ -5,8 +5,8 @@ PIP    := $(VENV)/bin/pip
 AIOS   := PYTHONPATH=agent/src $(PY) -m aios_agent
 
 .PHONY: help venv deps test lint typecheck policy check-policy check \
-        check-diagrams site site-check agent-chat agent-tools agent-doctor \
-        overlay image vm clean
+        check-diagrams site site-check shots shots-ui agent-chat agent-tools \
+        agent-doctor overlay image vm clean
 
 help:
 	@echo "aiOS — cibles disponibles"
@@ -20,6 +20,8 @@ help:
 	@echo "  make overlay       greffe l'overlay sur le checkout Chromium OS"
 	@echo "  make image         build du package puis de l'image"
 	@echo "  make vm            démarre l'image dans une VM"
+	@echo "  make shots         régénère les captures de terminal"
+	@echo "  make shots-ui      régénère les captures du bureau liquid glass"
 	@echo "  make agent-chat    démarre l'assistant en ligne de commande"
 
 venv:
@@ -51,6 +53,12 @@ check-diagrams:
 site:
 	$(VENV)/bin/python -c "import markdown" 2>/dev/null || $(PIP) install -q "markdown>=3.5"
 	$(PY) tools/build_site.py
+
+shots:
+	$(PY) tools/make_screenshots.py
+
+shots-ui:
+	$(PY) tools/make_ui_screenshots.py
 
 site-check:
 	$(PY) tools/build_site.py --check

@@ -183,7 +183,7 @@ manuellement.
 Toute la logique — sécurité comprise — est testée **sans** Chromium OS :
 
 ```bash
-make test          # 114 tests
+make test          # 130 tests
 make lint          # compilation + syntaxe bash
 make check-policy  # code ↔ fichier de politique
 ```

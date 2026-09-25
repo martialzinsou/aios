@@ -7,7 +7,7 @@
 ```bash
 git clone <dépôt> && cd aiOs
 make deps         # venv + pytest + pillow
-make check        # 114 tests + lint + politique — doit être vert
+make check        # 130 tests + lint + politique — doit être vert
 ```
 
 Prérequis : Python ≥ 3.9. **Aucune dépendance au runtime** — le moteur n'utilise
@@ -97,7 +97,7 @@ Toute évolution qui touche à `security/` doit :
 | Étape | Commande / fichier |
 |---|---|
 | prouver l'invariant concerné | un test **nommé d'après** l'invariant |
-| ne pas régresser les autres | `make test` (114 tests) |
+| ne pas régresser les autres | `make test` (130 tests) |
 | garder la politique alignée | `make check-policy` |
 | rester documentée | mettre à jour `docs/SECURITY.md` **et** le wiki |
 
@@ -175,7 +175,7 @@ Les 10 diagrammes Mermaid sont validés avec le **vrai parseur**
 ## 8. Vérification finale
 
 ```bash
-make check                        # 114 tests + lint + politique + diagrammes
+make check                        # 130 tests + lint + politique + diagrammes
 python3 tools/make_screenshots.py # captures à jour (échoue si fuite d'identité)
 make site                         # site/ régénéré
 git status                        # rien d'oublié

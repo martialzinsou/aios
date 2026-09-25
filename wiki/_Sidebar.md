@@ -16,6 +16,7 @@
 **Utiliser**
 
 - [Documentation fonctionnelle](Documentation-fonctionnelle)
+- [Interface graphique](Interface-graphique)
 - [Documentation technique](Documentation-technique)
 
 **Construire & exploiter**
@@ -27,6 +28,10 @@
 
 - [FAQ](FAQ)
 - [Contribuer](Contribuer)
+
+**Auteur**
+
+- [Martial Zinsou](Auteur)
 
 ---
 
